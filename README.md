@@ -13,8 +13,8 @@ python train.py --results_dir results --dataset AREDS --model LTSA --dropout 0.2
 python train.py --results_dir results --dataset OHTS --model LTSA --dropout 0.25 --augment --reduce_lr --batch_size 32
 
 # Train baseline on AREDS
-python train.py --results_dir results --dataset AREDS --model LTSA --dropout 0.25 --augment --reduce_lr --batch_size 448
+python train.py --results_dir results --dataset AREDS --model image --dropout 0.25 --augment --reduce_lr --batch_size 448
 
 # Train baseline on OHTS
-python train.py --results_dir results --dataset OHTS --model LTSA --dropout 0.25 --augment --reduce_lr --batch_size 448
+python train.py --results_dir results --dataset OHTS --model image --dropout 0.25 --augment --reduce_lr --batch_size 448
 ```
