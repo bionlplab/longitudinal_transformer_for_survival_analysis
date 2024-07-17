@@ -61,4 +61,6 @@ Bibtex:
 
 ## Acknowledgment
 
-This work is supported by the National Eye Institue under Award No. R21EY035296 and National Science Foundation under Award No. 2145640 and 2306556.
+This work is supported by the National Eye Institute under Award No. R21EY035296 and the National Science Foundation under Award Nos. 2145640 and 2306556. It is also supported by the NIH Intramural Research Program, the National Library of Medicine, and the National Eye Institute.
+
+
