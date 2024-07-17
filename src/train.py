@@ -146,6 +146,11 @@ def main(args):
     if args.reduce_lr:
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max' if args.val == 'c-index' else 'min', factor=args.reduce_lr_factor, patience=args.reduce_lr_patience, verbose=True)
 
+    if args.model == 'LTSA':
+        train_fn, validate_fn, evaluate_fn = train_LTSA, validate_LTSA, evaluate_LTSA
+    else:
+        train_fn, validate_fn, evaluate_fn = train, validate, evaluate
+
     # Train with early stopping
     epoch = 1
     if args.val == 'c-index':
@@ -156,13 +161,13 @@ def main(args):
         early_stopping_dict = {'best_metric': 1e8, 'epochs_no_improve': 0, 'metric': args.val}
     best_model_wts = None
     while epoch <= args.max_epochs and early_stopping_dict['epochs_no_improve'] < args.patience:
-        history = train(model=model, device=device, loss_fn=loss_fn, optimizer=optimizer, data_loader=train_loader, history=history, epoch=epoch, model_dir=model_dir, amp=args.amp, t_list=args.t_list, del_t_list=args.del_t_list, step_ahead=args.step_ahead, dataset=args.dataset)
-        history, early_stopping_dict, best_model_wts = validate(model=model, device=device, loss_fn=loss_fn, optimizer=optimizer, scheduler=scheduler, data_loader=val_loader, history=history, epoch=epoch, model_dir=model_dir, early_stopping_dict=early_stopping_dict, best_model_wts=best_model_wts, amp=args.amp, t_list=args.t_list, del_t_list=args.del_t_list, step_ahead=args.step_ahead, dataset=args.dataset)
+        history = train_fn(model=model, device=device, loss_fn=loss_fn, optimizer=optimizer, data_loader=train_loader, history=history, epoch=epoch, model_dir=model_dir, amp=args.amp, t_list=args.t_list, del_t_list=args.del_t_list, dataset=args.dataset, step_ahead=args.step_ahead)
+        history, early_stopping_dict, best_model_wts = validate_fn(model=model, device=device, loss_fn=loss_fn, optimizer=optimizer, scheduler=scheduler, data_loader=val_loader, history=history, epoch=epoch, model_dir=model_dir, early_stopping_dict=early_stopping_dict, best_model_wts=best_model_wts, amp=args.amp, t_list=args.t_list, del_t_list=args.del_t_list, dataset=args.dataset, step_ahead=args.step_ahead)
 
         epoch += 1
 
     # Evaluate trained model on test set
-    evaluate(model=model, device=device, loss_fn=loss_fn, data_loader=test_loader, history=history, model_dir=model_dir, weights=best_model_wts, amp=args.amp, t_list=args.t_list, del_t_list=args.del_t_list, step_ahead=args.step_ahead, dataset=args.dataset)
+    evaluate_fn(model=model, device=device, loss_fn=loss_fn, data_loader=test_loader, history=history, model_dir=model_dir, weights=best_model_wts, amp=args.amp, t_list=args.t_list, del_t_list=args.del_t_list, dataset=args.dataset, step_ahead=args.step_ahead)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

@@ -63,7 +63,7 @@ def brier_score(Prediction, Time_survival, Death, Time):
     return np.mean((Prediction - y_true)**2)
 
 ### TRAINING/VALIDATION/INFERENCE LOOPS FOR LTSA ###
-def train_LTSA(model, device, loss_fn, optimizer, data_loader, history, epoch, model_dir, amp, t_list, del_t_list, step_ahead, dataset):
+def train_LTSA(model, device, loss_fn, optimizer, data_loader, history, epoch, model_dir, amp, t_list, del_t_list, dataset, step_ahead=False):
     model.train()
     
     pbar = tqdm.tqdm(enumerate(data_loader), total=len(data_loader), desc=f'Epoch {epoch}')
@@ -213,7 +213,7 @@ def train_LTSA(model, device, loss_fn, optimizer, data_loader, history, epoch, m
 
     return pd.concat([history, current_metrics], axis=0)
 
-def validate_LTSA(model, device, loss_fn, optimizer, scheduler, data_loader, history, epoch, model_dir, early_stopping_dict, best_model_wts, amp, t_list, del_t_list, step_ahead, dataset):
+def validate_LTSA(model, device, loss_fn, optimizer, scheduler, data_loader, history, epoch, model_dir, early_stopping_dict, best_model_wts, amp, t_list, del_t_list, dataset, step_ahead=False):
     model.eval()
     
     pbar = tqdm.tqdm(enumerate(data_loader), total=len(data_loader), desc=f'[VAL] Epoch {epoch}')
@@ -380,7 +380,7 @@ def validate_LTSA(model, device, loss_fn, optimizer, scheduler, data_loader, his
 
     return pd.concat([history, current_metrics], axis=0), early_stopping_dict, best_model_wts
 
-def evaluate_LTSA(model, device, loss_fn, data_loader, history, model_dir, weights, amp, t_list, del_t_list, step_ahead, dataset):
+def evaluate_LTSA(model, device, loss_fn, data_loader, history, model_dir, weights, amp, t_list, del_t_list, dataset, step_ahead=False):
     model.eval()
     model.load_state_dict(weights, strict=True)
     
@@ -564,7 +564,7 @@ def evaluate_LTSA(model, device, loss_fn, data_loader, history, model_dir, weigh
     f.close()
 
 ### TRAINING/VALIDATION/INFERENCE LOOPS FOR SINGLE-IMAGE BASELINE ###
-def train(model, device, loss_fn, optimizer, data_loader, history, epoch, model_dir, amp, t_list, del_t_list, dataset):
+def train(model, device, loss_fn, optimizer, data_loader, history, epoch, model_dir, amp, t_list, del_t_list, dataset, step_ahead=False):
     model.train()
     
     pbar = tqdm.tqdm(enumerate(data_loader), total=len(data_loader), desc=f'Epoch {epoch}')
@@ -680,7 +680,7 @@ def train(model, device, loss_fn, optimizer, data_loader, history, epoch, model_
 
     return pd.concat([history, current_metrics], axis=0)
 
-def validate(model, device, loss_fn, optimizer, scheduler, data_loader, history, epoch, model_dir, early_stopping_dict, best_model_wts, amp, t_list, del_t_list, dataset):
+def validate(model, device, loss_fn, optimizer, scheduler, data_loader, history, epoch, model_dir, early_stopping_dict, best_model_wts, amp, t_list, del_t_list, dataset, step_ahead=False):
     model.eval()
     
     pbar = tqdm.tqdm(enumerate(data_loader), total=len(data_loader), desc=f'[VAL] Epoch {epoch}')
@@ -814,7 +814,7 @@ def validate(model, device, loss_fn, optimizer, scheduler, data_loader, history,
 
     return pd.concat([history, current_metrics], axis=0), early_stopping_dict, best_model_wts
 
-def evaluate(model, device, loss_fn, data_loader, history, model_dir, weights, amp, t_list, del_t_list, dataset):
+def evaluate(model, device, loss_fn, data_loader, history, model_dir, weights, amp, t_list, del_t_list, dataset, step_ahead=False):
     model.eval()
     model.load_state_dict(weights, strict=True)
     
