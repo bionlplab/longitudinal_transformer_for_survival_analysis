@@ -2,7 +2,7 @@
 
 [**Gregory Holste**](https://gholste.me), Mingquan Lin, Ruiwen Zhou, Fei Wang, Lei Liu, Qi Yan, Sarah H Van Tassel, Kyle Kovacs, Emily Y Chew, Zhiyong Lu, Zhangyang Wang, [**Yifan Peng**](https://penglab.weill.cornell.edu/team/yifan-peng)
 
-### [arXiv preprint](https://arxiv.org/abs/2405.08780) | 14 May 2024
+### [npj Digital Medicine](https://www.nature.com/articles/s41746-024-01207-4) | 16 August 2024
 
 ## Overview
 
