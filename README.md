@@ -43,19 +43,20 @@ If you find our work helpful, please cite the following.
 
 MLA:
 ```
-Holste G, Lin M, Zhou R, Wang F, Liu L, Yan Q, Van Tassel SH, Kovacs K, Chew EY, Lu Z, Wang Z. Harnessing the power of longitudinal medical imaging for eye disease prognosis using Transformer-based sequence modeling. arXiv preprint arXiv:2405.08780. 2024 May 14.
+Holste, Gregory, et al. "Harnessing the power of longitudinal medical imaging for eye disease prognosis using Transformer-based sequence modeling." npj Digital Medicine 7.1 (2024): 216.
 ```
 
 Bibtex:
 ```
-@misc{holste2024harnessingpowerlongitudinalmedical,
-      title={Harnessing the power of longitudinal medical imaging for eye disease prognosis using Transformer-based sequence modeling}, 
-      author={Gregory Holste and Mingquan Lin and Ruiwen Zhou and Fei Wang and Lei Liu and Qi Yan and Sarah H. Van Tassel and Kyle Kovacs and Emily Y. Chew and Zhiyong Lu and Zhangyang Wang and Yifan Peng},
-      year={2024},
-      eprint={2405.08780},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2405.08780}, 
+@article{holste2024harnessing,
+  title={Harnessing the power of longitudinal medical imaging for eye disease prognosis using Transformer-based sequence modeling},
+  author={Holste, Gregory and Lin, Mingquan and Zhou, Ruiwen and Wang, Fei and Liu, Lei and Yan, Qi and Van Tassel, Sarah H and Kovacs, Kyle and Chew, Emily Y and Lu, Zhiyong and others},
+  journal={npj Digital Medicine},
+  volume={7},
+  number={1},
+  pages={216},
+  year={2024},
+  publisher={Nature Publishing Group UK London}
 }
 ```
 
