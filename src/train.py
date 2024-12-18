@@ -56,7 +56,7 @@ def main(args):
     MODEL_NAME += f'_{args.loss}'
     MODEL_NAME += f'_lr-reduce-x{args.reduce_lr_factor}-p{args.reduce_lr_patience}' if args.reduce_lr else ''
     MODEL_NAME += f'_val-{args.val}'
-    MODEL_NAME += f'_alpha-{args.alpha}' if args.loss != 'cox' else ''
+    MODEL_NAME += f'_beta-{args.beta}' if args.loss != 'cox' else ''
     MODEL_NAME += f'_step-ahead' if args.step_ahead else ''
     MODEL_NAME += 'learned-pe' if args.learned_pe else ''
     MODEL_NAME += f'_tpe-{args.tpe_mode}' if args.tpe else ''
@@ -133,9 +133,9 @@ def main(args):
 
     # Get loss function
     if args.loss == 'ce':
-        loss_fn = CrossEntropySurvLoss(alpha=args.alpha)
+        loss_fn = CrossEntropySurvLoss(beta=args.beta)
     elif args.loss == 'nll':
-        loss_fn = NLLSurvLoss(alpha=args.alpha)
+        loss_fn = NLLSurvLoss(beta=args.beta)
     elif args.loss == 'cox':
         loss_fn = CoxSurvLoss()
 
@@ -186,12 +186,13 @@ if __name__ == '__main__':
     parser.add_argument('--model', type=str, default='image', choices=['image', 'LTSA'], help='Single-image baseline vs. Longitudinal Transformer for Survival Analysis (LTSA)')
     parser.add_argument('--n_layers', type=int, default=1)
     parser.add_argument('--n_heads', type=int, default=4)
+    parser.add_argument('--attn_map', action='store_true', default=False, help='Whether to return attention maps for LTSA')
     parser.add_argument('--tpe', action='store_true', default=False, help='Use temporal positional encoding (TPE) to embed knowledge of visit time in longitudinal image sequences')
     parser.add_argument('--tpe_mode', type=str, default='months', choices=['bins', 'months'], help='Embed visit time measured in months or discrete 6-month time bins')
     parser.add_argument('--amd_sev_enc', action='store_true', default=False, help='Embed AMD severity score from prior visit')
     parser.add_argument('--learned_pe', action='store_true', default=False, help='Use learned positional encoding rather than fixed sinusoidal encoding')
     parser.add_argument('--loss', type=str, default='ce', choices=['ce', 'nll', 'cox'], help='Survival loss function (cross-entropy, negative log likelihood, or Cox)')
-    parser.add_argument('--alpha', type=float, default=0.15, help='Weight applied to term that upweights uncensored cases')
+    parser.add_argument('--beta', type=float, default=0.15, help='Weight applied to term that upweights uncensored cases')
     parser.add_argument('--val', type=str, default='c-index', choices=['loss', 'c-index', 'brier'], help='Validation metric')
     parser.add_argument('--max_seq_len', type=int, default=14, help='Maximum sequence length (all sequences are padded to this length)')
     parser.add_argument('--t_list', type=int, nargs='+', default=[1, 2, 3, 5, 8])
