@@ -24,11 +24,14 @@ To reproduce the main results in our paper:
 conda env create -f ltsa.yml
 conda activate ltsa
 
+# Navigate to `src/` directory
+cd src
+
 # Train LTSA on AREDS
-python train.py --results_dir results --dataset AREDS --model LTSA --dropout 0.25 --augment --reduce_lr --batch_size 32
+python train.py --results_dir results --dataset AREDS --model LTSA --dropout 0.25 --augment --reduce_lr --batch_size 32 --tpe --step_ahead
 
 # Train LTSA on OHTS
-python train.py --results_dir results --dataset OHTS --model LTSA --dropout 0.25 --augment --reduce_lr --batch_size 32
+python train.py --results_dir results --dataset OHTS --model LTSA --dropout 0.25 --augment --reduce_lr --batch_size 32 --tpe --step_ahead
 
 # Train baseline on AREDS
 python train.py --results_dir results --dataset AREDS --model image --dropout 0.25 --augment --reduce_lr --batch_size 448
